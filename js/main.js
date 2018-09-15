@@ -1,10 +1,14 @@
-money = 100;
-point1 = 0;
+var money = 100;
+var point1 = 0;
+var Timer;
+var idm;
 document.getElementById("gacha").style.display = "none";
+
 //全体の処理
 var main = function () {
     myfunc2();
     setTimeout(myfunc, 5000);
+    console.log(idm);
 }
 
 // ガチャの処理
@@ -68,7 +72,7 @@ var monster = [
 var myfunc2 = function () {// アニメーションの処理
     var canvas = document.getElementById("cv");
     var ctx = canvas.getContext("2d");
-    var imgCnt = 8;  // 描画する画像の数
+    var imgCnt = 4;  // 上もしくは下の片面から出てくる描画する画像の数
     var aryImg = [];  // 画像の情報を格納
     var cvsw = 800;   // canvasタグに指定したwidth
     var cvsh = 600;   // canvasタグに指定したheight
@@ -82,10 +86,11 @@ var myfunc2 = function () {// アニメーションの処理
 
     // 画像のパラメーターを設定
     function setImagas() {
-        for (var i = 0; i < imgCnt; i += 2) {
+        for (var i = 0; i < imgCnt; i += 1) {
+            console.log("画像の数"+i);
             var x = 100;
             aryImg.push({
-                "posx": x * i,     // 初期表示位置x
+                "posx": x * (i*2),     // 初期表示位置x
                 "posy": 500,     // 初期表示位置y
                 "sizew": imgBaseSizeW,          // 画像の横幅
                 "sizeh": imgBaseSizeH,          // 画像の縦幅
@@ -98,19 +103,26 @@ var myfunc2 = function () {// アニメーションの処理
     function flow() {
         for (var idx = 0; idx < imgCnt; idx++) {// imgCntが画像の数、idxは現在の画像の数
             aryImg[idx].posy = aryImg[idx].posy - 3;// 上下に向かって進む
-            ctx.drawImage(img, aryImg[idx].posx, aryImg[idx].posy, aryImg[idx].sizew, aryImg[idx].sizeh);
-            ctx.drawImage(img, aryImg[idx].posx + 100, 500 - aryImg[idx].posy, aryImg[idx].sizew, aryImg[idx].sizeh);
+            ctx.drawImage(img, aryImg[idx].posx, aryImg[idx].posy, aryImg[idx].sizew, aryImg[idx].sizeh); //下から上へ
+            ctx.drawImage(img, aryImg[idx].posx + 100, 500 - aryImg[idx].posy, aryImg[idx].sizew, aryImg[idx].sizeh); //上から下へ
             // 範囲外に描画された画像を上に戻す
-            if (aryImg[idx].posy <= -100) { break; }
+            if (aryImg[idx].posy <= -100) { stopTimer(); break; }
             ctx.font = "italic 40px Arial"; //フォントにArial,40px,斜体を指定
             ctx.strokeStyle = "blue"; //輪郭線の色を青に
             ctx.strokeText("cat！！", 300, 300, 150);
+            // console.log("aaa");
         }
+        // console.log("bbb");
     }
 
     function flow_start() {
         setImagas();
-        setInterval(flow, 10);
+        Timer = setInterval(flow, 10);
+    }
+
+    function stopTimer() {
+        clearInterval(Timer);
+        // console.log("ccc");
     }
 
 }
@@ -129,16 +141,15 @@ function printIDm() {
 
 // テストID読み込み
 function printIDmDummyWithoutServer() {
-    // var seed = 1;
-    // var idm = getIDmDummyWithoutServer(seed);
     var database = firebase.database();
-    idm = 'c4ca4238a0b92382';
+    var seed = "1";
+    idm = getIDmDummyWithoutServer(seed);
     var dataRef = database.ref('/' + idm);
     dataRef.once("value").then(function (snapshot) {
         document.getElementById("UserName").innerHTML = 'ユーザー名：' + snapshot.child("name").val();
         document.getElementById("Point").innerHTML = 'ポイント：' + snapshot.child("money").val();
-        id = snapshot.child("money").val(); //テスト用
         document.getElementById("gacha").style.display = "inline";
+        console.log(idm)
     });
 }
 
@@ -149,8 +160,10 @@ function reload() {
     dataRef.once("value").then(function (snapshot) {
         document.getElementById("UserName").innerHTML = 'ユーザー名：' + snapshot.child("name").val();
         document.getElementById("Point").innerHTML = 'ポイント：' + snapshot.child("money").val();
-        tetes = snapshot.child("money").val();
-        console.log(tetes);
+        tetes1 = snapshot.child("money").val();
+        tetes2 = snapshot.child("name").val();
+        console.log(tetes1);
+        console.log(tetes2);
     });
 }
 
