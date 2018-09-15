@@ -8,7 +8,6 @@ document.getElementById("gacha").style.display = "none";
 var main = function () {
     myfunc2();
     setTimeout(myfunc, 5000);
-    console.log(idm);
 }
 
 // ガチャの処理
@@ -38,8 +37,8 @@ var myfunc = function () {
         un = monster[randomNumber][0];
         point1 = 10;
     }
-    console.log(rea);
-    console.log(un);
+    // console.log(rea);
+    // console.log(un);
     db();
 
     // canvas上に文字を表示
@@ -87,7 +86,7 @@ var myfunc2 = function () {// アニメーションの処理
     // 画像のパラメーターを設定
     function setImagas() {
         for (var i = 0; i < imgCnt; i += 1) {
-            console.log("画像の数"+i);
+            // console.log("画像の数"+i);
             var x = 100;
             aryImg.push({
                 "posx": x * (i*2),     // 初期表示位置x
@@ -149,7 +148,7 @@ function printIDmDummyWithoutServer() {
         document.getElementById("UserName").innerHTML = 'ユーザー名：' + snapshot.child("name").val();
         document.getElementById("Point").innerHTML = 'ポイント：' + snapshot.child("money").val();
         document.getElementById("gacha").style.display = "inline";
-        console.log(idm)
+        // console.log(idm)
     });
 }
 
@@ -162,8 +161,8 @@ function reload() {
         document.getElementById("Point").innerHTML = 'ポイント：' + snapshot.child("money").val();
         tetes1 = snapshot.child("money").val();
         tetes2 = snapshot.child("name").val();
-        console.log(tetes1);
-        console.log(tetes2);
+        // console.log(tetes1);
+        // console.log(tetes2);
     });
 }
 
