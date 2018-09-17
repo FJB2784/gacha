@@ -57,6 +57,7 @@ var myfunc = function () {
     }
     img.src = "img/" + randomNumber + '.png';
     setTimeout(reload, 500);
+    document.getElementById("gacha").style.display = "inline";
 }
 
 
@@ -69,6 +70,7 @@ var monster = [
 
 
 var myfunc2 = function () {// アニメーションの処理
+    document.getElementById("gacha").style.display = "none";
     var canvas = document.getElementById("cv");
     var ctx = canvas.getContext("2d");
     var imgCnt = 4;  // 上もしくは下の片面から出てくる描画する画像の数
@@ -182,6 +184,80 @@ function db() {
 function logout() {
     idm = null;
     if (idm == null) { document.getElementById("gacha").style.display = "none"; }
-    document.getElementById("UserName").innerHTML = 'ユーザー名：' + 'ログインしてください';
-    document.getElementById("Point").innerHTML = 'ポイント：' + 'ログインしてください';
+    document.getElementById("UserName").innerHTML = 'ユーザー名：' + 'ログインして';
+    document.getElementById("Point").innerHTML = 'ポイント：' + 'ログインして';
+}
+
+// ファンクションキー無効
+function check(){ 
+    if(event.keyCode >= 112 && event.keyCode <= 123){ 
+        event.keyCode = 0;  
+        return false; 
+    } 
+} 
+window.document.onkeydown = check; 
+
+//全画面表示
+function requestFullScreen(element){
+	var isFullScreen = false;
+	var requestMethod = get_fullScreenMethod(element);
+	if(requestMethod){
+		requestMethod.call(element);
+		isFullScreen = true;
+	}else if(typeof window.ActiveXObject !== "undefined"){
+		//for Internet Explorer
+		var wscript = new ActiveXObject("WScript.Shell");
+		if(wscript !== null){
+			wscript.SendKeys("{F11}");
+			isFullScreen = true;
+		}
+	}
+
+	return isFullScreen;
+}
+
+//クロースブラウザ対応の全画面表示API
+function get_fullScreenMethod(element){
+	var requestMethod =
+		element.requestFullscreen ||		//W3C
+		element.requestFullScreen ||		//W3C
+		element.webkitRequestFullscreen ||	//Chrome等
+		element.webkitRequestFullScreen ||	//Chrome等
+		element.mozRequestFullscreen ||		//FireFox
+		element.mozRequestFullScreen ||		//FireFox
+		element.msRequestFullscreen ||		//IE11
+		element.msRequestFullScreen;		//IE11
+
+	return requestMethod;
+}
+
+//全画面の解除
+function exitFull(){
+	var exitMethod = get_exitFullScreenMethod();
+	if(exitMethod){
+		exitMethod.call(document);
+	}else if(typeof window.ActiveXObject !== "undefined"){
+		//for Internet Explorer
+		var wscript = new ActiveXObject("WScript.Shell");
+		if(wscript !== null) wscript.SendKeys("{F11}");
+	}
+}
+
+//クロースブラウザ対応の全画面解除API
+function get_exitFullScreenMethod(){
+	var exitMethod =
+		document.exitFullscreen ||		//W3C
+		document.exitFullScreen ||		//W3C
+		document.webkitExitFullscreen ||	//Chrome等
+		document.webkitExitFullScreen ||	//Chrome等
+		document.webkitCancelFullscreen ||	//Chrome等
+		document.webkitCancelFullScreen ||	//Chrome等
+		document.mozCancelFullscreen ||		//FireFox
+		document.mozCancelFullScreen ||		//FireFox
+		document.mozExitFullscreen ||		//FireFox
+		document.mozExitFullScreen ||		//FireFox
+		document.msExitFullscreen ||		//IE11
+		document.msExitFullScreen;		//IE11
+
+	return exitMethod;
 }

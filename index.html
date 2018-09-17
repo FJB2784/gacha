@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html id="myvideo" onContextmenu="return false;">
 
 <head>
     <meta charset="UTF-8">
@@ -8,26 +8,45 @@
 </head>
 
 <body>
-    <div id="sidenavi"><br>
-        ①<input type="button" value="ID読み込み" onclick="printIDm()"> or <input type="button" value="テストID読み込み" onclick="printIDmDummyWithoutServer();"><br><br>
-        ②<input type="button" value="ガチャを引く" id="gacha" onclick="main()"><br><br>
-        ③<input type="button" value="ログアウト" onclick="logout()"><br><br>
-        <!-- <input type="button" value="送信テスト" onclick="db()"> -->
-        <!-- <input type="button" value="演出テスト" onclick="myfunc2()"> -->
-        <div id="UserName">ユーザー名:ログインしてください</div>
-        <div id="Point">ポイント:ログインしてください</div>
-        <div id="comp">コンプ率:</div>
-    </div>
+    <div id="game">
+        <div id="contents">
+            <canvas id="cv" width="800" height="540"></canvas>
+            SR100ポイント R50ポイント N1ポイント 
+        </div>
 
-    <div id="contents">
-        <canvas id="cv" width="800" height="540"></canvas>
-    </div>
+        <div id="sidenavi">
+            <div id="meter">
+                <div id="UserName" onclick="requestFullScreen(myvideo);">ユーザー名:要ログイン</div>
+            </div>
+            <div id="meter">
+                <div id="Point" onclick="exitFull();">ポイント:要ログイン</div>
+            </div>
 
-    <script type="text/javascript" src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
-    <script type="text/javascript" src="js/account.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
-    <script type="text/javascript" src="js/nfc_client.js"></script>
-    <script type="text/javascript" src="js/yjdmd5.js"></script>
+            <table>
+                <tr>
+                    <td>
+                        <input type="button" value="テストID読み込み" onclick="printIDmDummyWithoutServer();"> </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="button" value="ガチャを引く" id="gacha" onclick="main()">　
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="button" value="ログアウト" onclick="logout()">
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+
+        <script type="text/javascript" src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
+        <script type="text/javascript" src="js/account.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/nfc_client.js"></script>
+        <script type="text/javascript" src="js/yjdmd5.js"></script>
+    </div>
 </body>
 
 </html>
