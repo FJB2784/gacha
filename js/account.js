@@ -1,10 +1,10 @@
 ﻿// Initialize Firebase
 var config = {
-  apiKey: "AIzaSyA-upgtmxNK_WG-Rh6TzxpIFJbEzze6Kac",
-  authDomain: "project-d41aa.firebaseapp.com",
-  databaseURL: "https://project-d41aa.firebaseio.com",
-  projectId: "project-d41aa",
-  storageBucket: "project-d41aa.appspot.com",
-  messagingSenderId: "362114663097"
+      apiKey: "ここはセキュリティ上の理由によって",
+      authDomain: "入れてません",
+      databaseURL: "なのでFirebaseの管理画面に",
+      projectId: "ログインして「Authentication」の",
+      storageBucket: "「Web設定」から確認して",
+      messagingSenderId: "入れてください"
 };
 firebase.initializeApp(config);
